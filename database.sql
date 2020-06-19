@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS "todo" CASCADE;
 -- **********
 
 CREATE TABLE "todo" (
-    "id" serial PRIMARY KEY,
+id SERIAL PRIMARY KEY,
 	"creation_date" TIMESTAMP DEFAULT NOW(),
 	"text" varchar(255) NOT NULL DEFAULT 'New to do',
 	"is_completed" BOOLEAN DEFAULT 'false'

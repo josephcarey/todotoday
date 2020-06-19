@@ -19,7 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "nodemon --watch server server/server.js"
+    "server": "nodemon --watch server server/server.js",
+    "reset-data": "node reset-test-data.js"
   },
   "eslintConfig": {
     "extends": "react-app"
