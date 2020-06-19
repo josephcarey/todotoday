@@ -39,4 +39,24 @@ router.post("/", (req, res) => {
     });
 });
 
+router.delete("/:id", (req, res) => {
+  console.log("in /api/todo/ DELETE");
+  console.log("req.params.id:", req.params.id);
+  pool
+    .query(
+      `
+      DELETE from "todo" where id = $1
+  `,
+      [req.params.id]
+    )
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log("Error deleting todo in /api/todo/ DELETE");
+      console.log(error);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

@@ -3,10 +3,31 @@ import axios from "axios";
 
 // eslint-disable-next-line max-lines-per-function
 const App = () => {
+  // Hooks
+  const [todos, setTodos] = useState([{ id: 66 }]);
+  const [currentlyEditing, setCurrentlyEditing] = useState(0);
+  const [newToDoText, setNewToDoText] = useState("");
+
+  useEffect(() => {
+    getToDos();
+  }, []);
+
   // Functions
-  const getData = () => {
+  const getToDos = () => {
     axios.get("api/todo").then((response) => {
       setTodos(response.data);
+    });
+  };
+
+  const addToDo = (textForToDoToAdd) => {
+    axios.post("api/todo", { newToDoText: textForToDoToAdd }).then(() => {
+      getToDos();
+    });
+  };
+
+  const deleteToDo = (idToDelete) => {
+    axios.delete("api/todo/" + idToDelete).then(() => {
+      getToDos();
     });
   };
 
@@ -15,19 +36,15 @@ const App = () => {
     addToDo(newToDoText);
   };
 
-  const addToDo = (textForToDoToAdd) => {
-    axios.post("api/todo", { newToDoText: textForToDoToAdd }).then(() => {
-      getData();
-    });
+  const handleDeleteClick = (deleteId) => {
+    console.log("delete button clicked, id:", deleteId);
+    deleteToDo(deleteId);
   };
 
-  // Hooks
-  const [todos, setTodos] = useState([{ id: 66 }]);
-  const [newToDoText, setNewToDoText] = useState("");
-
-  useEffect(() => {
-    getData();
-  }, []);
+  const handleEditClick = (editId) => {
+    console.log("edit button clicked, id:", editId);
+    setCurrentlyEditing(editId);
+  };
 
   return (
     <div>
@@ -40,6 +57,10 @@ const App = () => {
           return (
             <li key={todo.id}>
               {todo.id}. {todo.text}
+              <button onClick={() => handleEditClick(todo.id)}>
+                {currentlyEditing === todo.id ? "Currently Editing" : "Edit"}
+              </button>
+              <button onClick={() => handleDeleteClick(todo.id)}>Delete</button>
             </li>
           );
         })}
