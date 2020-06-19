@@ -7,6 +7,7 @@ const todoRouter = require("./todo.router");
 // Routes
 router.use("/todo", todoRouter);
 
+// If we don't hit a route, API base
 router.get("/", (req, res) => {
   // Send back user object from the session (previously queried from the database)
   console.log("in /api/ GET");
