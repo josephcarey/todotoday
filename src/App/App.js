@@ -30,7 +30,7 @@ const App = () => {
           );
         })}
       </ul>
-      {JSON.stringify(todos)}
+      <pre>{JSON.stringify(todos, null, 2)}</pre>
     </div>
   );
 };
