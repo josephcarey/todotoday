@@ -21,15 +21,15 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
   console.log("in /api/todo/ POST");
+  console.log("req.body.newToDoText:", req.body.newToDoText);
   pool
     .query(
       `
         INSERT into "todo" ("text") VALUES ($1)
     `,
-      // [req.body.newToDoText]
-      ["Some sample todo text"]
+      [req.body.newToDoText]
     )
-    .then((results) => {
+    .then(() => {
       res.sendStatus(200);
     })
     .catch((error) => {

@@ -12,6 +12,13 @@ const App = () => {
 
   const handleAddClick = () => {
     console.log("add button clicked, text:", newToDoText);
+    addToDo(newToDoText);
+  };
+
+  const addToDo = (textForToDoToAdd) => {
+    axios.post("api/todo", { newToDoText: textForToDoToAdd }).then(() => {
+      getData();
+    });
   };
 
   // Hooks
