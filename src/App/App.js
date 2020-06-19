@@ -3,13 +3,20 @@ import axios from "axios";
 
 // eslint-disable-next-line max-lines-per-function
 const App = () => {
-  const [todos, setTodos] = useState([{ id: 66 }]);
-
+  // Functions
   const getData = () => {
     axios.get("api/todo").then((response) => {
       setTodos(response.data);
     });
   };
+
+  const handleAddClick = () => {
+    console.log("add button clicked, text:", newToDoText);
+  };
+
+  // Hooks
+  const [todos, setTodos] = useState([{ id: 66 }]);
+  const [newToDoText, setNewToDoText] = useState("");
 
   useEffect(() => {
     getData();
@@ -30,8 +37,12 @@ const App = () => {
           );
         })}
       </ul>
-      <input type="text" />
-      <button>Add To Do</button>
+      <input
+        type="text"
+        value={newToDoText}
+        onChange={(e) => setNewToDoText(e.target.value)}
+      />
+      <button onClick={() => handleAddClick()}>Add To Do</button>
       <pre>{JSON.stringify(todos, null, 2)}</pre>
     </div>
   );
