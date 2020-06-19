@@ -30,6 +30,8 @@ const App = () => {
           );
         })}
       </ul>
+      <input type="text" />
+      <button>Add To Do</button>
       <pre>{JSON.stringify(todos, null, 2)}</pre>
     </div>
   );
