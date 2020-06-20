@@ -9,4 +9,4 @@
 
 # Today
 
-- Show to-dos on screen
+- Edit to dos

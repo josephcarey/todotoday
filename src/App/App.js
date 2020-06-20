@@ -4,8 +4,9 @@ import axios from "axios";
 // eslint-disable-next-line max-lines-per-function
 const App = () => {
   // Hooks
-  const [todos, setTodos] = useState([{ id: 66 }]);
+  const [todos, setTodos] = useState([{ id: 0 }]);
   const [currentlyEditing, setCurrentlyEditing] = useState(0);
+  const [currentlyEditingText, setCurrentlyEditingText] = useState("");
   const [newToDoText, setNewToDoText] = useState("");
 
   useEffect(() => {
@@ -31,6 +32,14 @@ const App = () => {
     });
   };
 
+  const editToDo = (idToEdit, newText) => {
+    axios
+      .put("api/todo/", { idToEdit: idToEdit, newText: newText })
+      .then(() => {
+        getToDos();
+      });
+  };
+
   const handleAddClick = () => {
     console.log("add button clicked, text:", newToDoText);
     addToDo(newToDoText);
@@ -41,9 +50,17 @@ const App = () => {
     deleteToDo(deleteId);
   };
 
-  const handleEditClick = (editId) => {
+  const handleEditClick = (editId, toEditText) => {
     console.log("edit button clicked, id:", editId);
     setCurrentlyEditing(editId);
+    setCurrentlyEditingText(toEditText);
+  };
+
+  const handleSaveClick = (saveId, saveText) => {
+    console.log("save button clicked, data:", saveId, saveText);
+    editToDo(saveId, saveText);
+    setCurrentlyEditing(0);
+    setCurrentlyEditingText("");
   };
 
   return (
@@ -56,10 +73,30 @@ const App = () => {
         {todos.map((todo) => {
           return (
             <li key={todo.id}>
-              {todo.id}. {todo.text}
-              <button onClick={() => handleEditClick(todo.id)}>
-                {currentlyEditing === todo.id ? "Currently Editing" : "Edit"}
-              </button>
+              {currentlyEditing === todo.id ? (
+                <>
+                  {todo.id}.
+                  <input
+                    type="text"
+                    value={currentlyEditingText}
+                    onChange={(e) => setCurrentlyEditingText(e.target.value)}
+                  />
+                  <button
+                    onClick={() =>
+                      handleSaveClick(todo.id, currentlyEditingText)
+                    }
+                  >
+                    Save
+                  </button>
+                </>
+              ) : (
+                <>
+                  {todo.id}. {todo.text}
+                  <button onClick={() => handleEditClick(todo.id, todo.text)}>
+                    Edit
+                  </button>
+                </>
+              )}
               <button onClick={() => handleDeleteClick(todo.id)}>Delete</button>
             </li>
           );
