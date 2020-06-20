@@ -6,7 +6,7 @@ const router = express.Router();
 router.get("/", (req, res) => {
   console.log("in /api/todo/ GET");
   pool
-    .query(`SELECT * FROM "todo" order by id asc`)
+    .query(`SELECT * FROM "todo" order by id asc;`)
     .then((results) => {
       console.log("results:");
       console.log(results.rows);
@@ -25,7 +25,7 @@ router.post("/", (req, res) => {
   pool
     .query(
       `
-        INSERT into "todo" ("text") VALUES ($1)
+        INSERT into "todo" ("text") VALUES ($1);
     `,
       [req.body.newToDoText]
     )
@@ -45,7 +45,7 @@ router.delete("/:id", (req, res) => {
   pool
     .query(
       `
-      DELETE from "todo" where id = $1
+      DELETE from "todo" where id = $1;
   `,
       [req.params.id]
     )
@@ -54,6 +54,32 @@ router.delete("/:id", (req, res) => {
     })
     .catch((error) => {
       console.log("Error deleting todo in /api/todo/ DELETE");
+      console.log(error);
+      res.sendStatus(500);
+    });
+});
+
+router.put("/", (req, res) => {
+  console.log("in /api/todo/ PUT");
+  console.log(
+    "req.body.idToEdit, newText:",
+    req.body.idToEdit,
+    req.body.newText
+  );
+  pool
+    .query(
+      `
+    UPDATE "todo"
+    SET "text" = $1
+    where id = $2;
+`,
+      [req.body.newText, req.body.idToEdit]
+    )
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log("Error editing todo in /api/todo/ PUT");
       console.log(error);
       res.sendStatus(500);
     });
