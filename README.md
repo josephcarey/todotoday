@@ -9,4 +9,10 @@
 
 # Today
 
+- Move db access logic out of routers
+
+# Finished
+
 - Edit to dos
+- Show to dos on screen
+- Delete to dos

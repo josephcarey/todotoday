@@ -1,3 +1,4 @@
+const { debug } = require("../modules/utilities");
 const pool = require("../modules/pool");
 
 const ToDo = {
@@ -16,13 +17,13 @@ const ToDo = {
           `SELECT * FROM ${this.tableName} order by ${this.fields.id} asc;`
         )
         .then((results) => {
-          console.log("results:");
-          console.log(results.rows);
+          debug("results:");
+          debug(results.rows);
           resolve(results.rows);
         })
         .catch((error) => {
-          console.log("Error getting todos in /api/todo/ GET");
-          console.log(error);
+          debug("Error getting todos in /api/todo/ GET");
+          debug(error);
           reject(error);
         });
     });

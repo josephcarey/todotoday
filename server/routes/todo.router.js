@@ -1,3 +1,5 @@
+const { debug } = require("../modules/utilities");
+
 const express = require("express");
 const pool = require("../modules/pool");
 
@@ -6,7 +8,7 @@ const ToDo = require("../modules/todo");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  console.log("in /api/todo/ GET");
+  debug("in /api/todo/ GET");
 
   ToDo.getAllToDos()
     .then((results) => {
