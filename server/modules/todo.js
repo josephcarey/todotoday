@@ -63,6 +63,26 @@ const ToDo = {
         });
     });
   },
+
+  editToDoText(idToEdit, newText) {
+    return new Promise((resolve, reject) => {
+      pool
+        .query(
+          `UPDATE ${this.tableName}
+            SET ${this.fields.text} = $1
+            where ${this.fields.id} = $2;`,
+          [newText, idToEdit]
+        )
+        .then(() => {
+          resolve();
+        })
+        .catch((error) => {
+          debug("Error editing todo");
+          debug(error);
+          reject(error);
+        });
+    });
+  },
 };
 
 module.exports = ToDo;
