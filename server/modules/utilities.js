@@ -1,7 +1,7 @@
-const printDebug = false;
+const printDebug = true;
 
-const debug = (message) => {
-  printDebug && console.log(message);
+const debug = (message, ...others) => {
+  printDebug && console.log(message, others.join());
 };
 
 module.exports = {

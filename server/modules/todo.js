@@ -28,6 +28,24 @@ const ToDo = {
         });
     });
   },
+
+  addToDo(toDoText) {
+    return new Promise((resolve, reject) => {
+      pool
+        .query(
+          `INSERT into ${this.tableName} (${this.fields.text}) VALUES ($1);`,
+          [toDoText]
+        )
+        .then(() => {
+          resolve();
+        })
+        .catch((error) => {
+          debug("Error adding todo in /api/todo/ POST");
+          debug(error);
+          reject();
+        });
+    });
+  },
 };
 
 module.exports = ToDo;

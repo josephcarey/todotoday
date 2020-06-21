@@ -20,28 +20,20 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  console.log("in /api/todo/ POST");
-  console.log("req.body.newToDoText:", req.body.newToDoText);
-  pool
-    .query(
-      `
-        INSERT into "todo" ("text") VALUES ($1);
-    `,
-      [req.body.newToDoText]
-    )
+  debug("in /api/todo/ POST");
+  debug("req.body.newToDoText:", req.body.newToDoText);
+  ToDo.addToDo(req.body.newToDoText)
     .then(() => {
-      res.sendStatus(200);
+      res.sendStatus(201);
     })
-    .catch((error) => {
-      console.log("Error adding todo in /api/todo/ POST");
-      console.log(error);
+    .catch(() => {
       res.sendStatus(500);
     });
 });
 
 router.delete("/:id", (req, res) => {
-  console.log("in /api/todo/ DELETE");
-  console.log("req.params.id:", req.params.id);
+  debug("in /api/todo/ DELETE");
+  debug("req.params.id:", req.params.id);
   pool
     .query(
       `
@@ -53,19 +45,15 @@ router.delete("/:id", (req, res) => {
       res.sendStatus(200);
     })
     .catch((error) => {
-      console.log("Error deleting todo in /api/todo/ DELETE");
-      console.log(error);
+      debug("Error deleting todo in /api/todo/ DELETE");
+      debug(error);
       res.sendStatus(500);
     });
 });
 
 router.put("/", (req, res) => {
-  console.log("in /api/todo/ PUT");
-  console.log(
-    "req.body.idToEdit, newText:",
-    req.body.idToEdit,
-    req.body.newText
-  );
+  debug("in /api/todo/ PUT");
+  debug("req.body.idToEdit, newText:", req.body.idToEdit, req.body.newText);
   pool
     .query(
       `
@@ -79,8 +67,8 @@ router.put("/", (req, res) => {
       res.sendStatus(200);
     })
     .catch((error) => {
-      console.log("Error editing todo in /api/todo/ PUT");
-      console.log(error);
+      debug("Error editing todo in /api/todo/ PUT");
+      debug(error);
       res.sendStatus(500);
     });
 });
