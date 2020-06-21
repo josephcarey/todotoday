@@ -7,9 +7,14 @@ const debug = (message, ...others) => {
 };
 
 const getDebugMessage = (message, ...others) => {
+  if (!message) {
+    return false;
+  }
+
   return message & others.join(" ");
 };
 
 module.exports = {
   debug,
+  getDebugMessage,
 };

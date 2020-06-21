@@ -18,7 +18,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test-server": "jest --watch --config='server-jest.config.json'",
+    "test-server": "jest --watch --coverage --config='server-jest.config.json'",
     "eject": "react-scripts eject",
     "server": "nodemon --watch server server/server.js",
     "reset-data": "node reset-test-data.js"

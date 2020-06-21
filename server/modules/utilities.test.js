@@ -1,6 +1,8 @@
-const utilities = require("../modules/utilities");
+const { getDebugMessage } = require("../modules/utilities");
 
-test("test test", () => {
-  const testBool = true;
-  expect(testBool).toBe(true);
+describe("getDebugMessage() function", () => {
+  test("If it is called without arguments it should return false", () => {
+    const testMessage = false;
+    expect(getDebugMessage()).toBe(false);
+  });
 });
