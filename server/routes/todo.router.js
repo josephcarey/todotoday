@@ -1,20 +1,18 @@
 const express = require("express");
 const pool = require("../modules/pool");
 
+const ToDo = require("../modules/todo");
+
 const router = express.Router();
 
 router.get("/", (req, res) => {
   console.log("in /api/todo/ GET");
-  pool
-    .query(`SELECT * FROM "todo" order by id asc;`)
+
+  ToDo.getAllToDos()
     .then((results) => {
-      console.log("results:");
-      console.log(results.rows);
-      res.send(results.rows);
+      res.send(results);
     })
-    .catch((error) => {
-      console.log("Error getting todos in /api/todo/ GET");
-      console.log(error);
+    .catch(() => {
       res.sendStatus(500);
     });
 });
