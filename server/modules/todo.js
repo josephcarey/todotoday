@@ -22,7 +22,7 @@ const ToDo = {
           resolve(results.rows);
         })
         .catch((error) => {
-          debug("Error getting todos in /api/todo/ GET");
+          debug("Error getting all todos");
           debug(error);
           reject(error);
         });
@@ -40,9 +40,26 @@ const ToDo = {
           resolve();
         })
         .catch((error) => {
-          debug("Error adding todo in /api/todo/ POST");
+          debug("Error adding todo");
           debug(error);
           reject();
+        });
+    });
+  },
+
+  deleteToDo(idToDelete) {
+    return new Promise((resolve, reject) => {
+      pool
+        .query(`DELETE from ${this.tableName} where ${this.fields.id} = $1;`, [
+          idToDelete,
+        ])
+        .then(() => {
+          resolve();
+        })
+        .catch((error) => {
+          debug("Error deleting todo");
+          debug(error);
+          reject(error);
         });
     });
   },

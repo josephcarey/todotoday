@@ -22,6 +22,7 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   debug("in /api/todo/ POST");
   debug("req.body.newToDoText:", req.body.newToDoText);
+
   ToDo.addToDo(req.body.newToDoText)
     .then(() => {
       res.sendStatus(201);
@@ -34,19 +35,12 @@ router.post("/", (req, res) => {
 router.delete("/:id", (req, res) => {
   debug("in /api/todo/ DELETE");
   debug("req.params.id:", req.params.id);
-  pool
-    .query(
-      `
-      DELETE from "todo" where id = $1;
-  `,
-      [req.params.id]
-    )
+
+  ToDo.deleteToDo(req.params.id)
     .then(() => {
       res.sendStatus(200);
     })
-    .catch((error) => {
-      debug("Error deleting todo in /api/todo/ DELETE");
-      debug(error);
+    .catch(() => {
       res.sendStatus(500);
     });
 });
