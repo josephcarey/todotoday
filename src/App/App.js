@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+import ToDo from "../ToDo/ToDo";
+
 // eslint-disable-next-line max-lines-per-function
 const App = () => {
   // Hooks
@@ -72,33 +74,17 @@ const App = () => {
       <ul>
         {todos.map((todo) => {
           return (
-            <li key={todo.id}>
-              {currentlyEditing === todo.id ? (
-                <>
-                  {todo.id}.
-                  <input
-                    type="text"
-                    value={currentlyEditingText}
-                    onChange={(e) => setCurrentlyEditingText(e.target.value)}
-                  />
-                  <button
-                    onClick={() =>
-                      handleSaveClick(todo.id, currentlyEditingText)
-                    }
-                  >
-                    Save
-                  </button>
-                </>
-              ) : (
-                <>
-                  {todo.id}. {todo.text}
-                  <button onClick={() => handleEditClick(todo.id, todo.text)}>
-                    Edit
-                  </button>
-                </>
-              )}
-              <button onClick={() => handleDeleteClick(todo.id)}>Delete</button>
-            </li>
+            <ToDo
+              key={todo.id}
+              id={todo.id}
+              text={todo.text}
+              currentlyEditing={currentlyEditing === todo.id}
+              currentlyEditingText={currentlyEditingText}
+              setCurrentlyEditingText={setCurrentlyEditingText}
+              handleSaveClick={handleSaveClick}
+              handleEditClick={handleEditClick}
+              handleDeleteClick={handleDeleteClick}
+            />
           );
         })}
       </ul>
