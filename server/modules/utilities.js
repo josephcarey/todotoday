@@ -1,20 +1,27 @@
-const printDebug = true;
+const getPrintDebug = () => {
+  return true;
+};
 
 const debug = (message, ...others) => {
-  printDebug &&
+  getPrintDebug() &&
     getDebugMessage(message, ...others) &&
     console.log(getDebugMessage(message, ...others));
 };
 
+// const debug = (message) => {
+//   console.log(message);
+// };
+
 const getDebugMessage = (message, ...others) => {
-  if (!message) {
+  if (message == null) {
     return false;
   }
 
-  return message & others.join(" ");
+  return others.length === 0 ? message : message + " " + others.join(" ");
 };
 
 module.exports = {
+  getPrintDebug,
   debug,
   getDebugMessage,
 };
