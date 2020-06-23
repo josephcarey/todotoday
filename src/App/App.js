@@ -29,7 +29,6 @@ const theme = createMuiTheme({
 const App = () => {
   // Hooks
   const [todos, setTodos] = useState([{ id: 0 }]);
-  const [newToDoText, setNewToDoText] = useState("");
 
   useEffect(() => {
     getToDos();
@@ -62,11 +61,6 @@ const App = () => {
       });
   };
 
-  const handleAddClick = () => {
-    console.log("add button clicked, text:", newToDoText);
-    addToDo(newToDoText);
-  };
-
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
@@ -86,13 +80,7 @@ const App = () => {
           })}
           <ToDoAdd addToDo={addToDo} />
         </ToDoList>
-        {/* <input
-          type="text"
-          value={newToDoText}
-          onChange={(e) => setNewToDoText(e.target.value)}
-        />
-        <button onClick={() => handleAddClick()}>Add To Do</button> */}
-        <pre>{JSON.stringify(todos, null, 2)}</pre>
+        {/* <pre>{JSON.stringify(todos, null, 2)}</pre> */}
       </Paper>
     </MuiThemeProvider>
   );
