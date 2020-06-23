@@ -1,7 +1,25 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+// Material-UI
+import {
+  CssBaseline,
+  createMuiTheme,
+  MuiThemeProvider,
+} from "@material-ui/core";
+
 import ToDo from "../ToDo/ToDo";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: "#e0e0e0" },
+    secondary: { main: "#ffeb3b" },
+    // type: "dark",
+  },
+  // typography: {
+  //   useNextVariants: true,
+  // },
+});
 
 // eslint-disable-next-line max-lines-per-function
 const App = () => {
@@ -66,7 +84,8 @@ const App = () => {
   };
 
   return (
-    <div>
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
       <header>
         <h1>TodoToday</h1>
       </header>
@@ -95,7 +114,7 @@ const App = () => {
       />
       <button onClick={() => handleAddClick()}>Add To Do</button>
       <pre>{JSON.stringify(todos, null, 2)}</pre>
-    </div>
+    </MuiThemeProvider>
   );
 };
 
