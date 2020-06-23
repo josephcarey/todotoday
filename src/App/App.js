@@ -8,6 +8,7 @@ import {
   MuiThemeProvider,
 } from "@material-ui/core";
 
+import Header from "../Header/Header";
 import ToDo from "../ToDo/ToDo";
 
 const theme = createMuiTheme({
@@ -86,9 +87,7 @@ const App = () => {
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
-      <header>
-        <h1>TodoToday</h1>
-      </header>
+      <Header text="Todo Today" />
       <h2>To Dos:</h2>
       <ul>
         {todos.map((todo) => {
