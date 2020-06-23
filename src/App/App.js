@@ -6,10 +6,14 @@ import {
   CssBaseline,
   createMuiTheme,
   MuiThemeProvider,
+  Paper,
 } from "@material-ui/core";
 
 import Header from "../Header/Header";
-import ToDo from "../ToDo/ToDo";
+import ToDoList from "../ToDoList/ToDoList";
+import ToDoShell from "../ToDoShell/ToDoShell";
+import ToDoNormal from "../ToDoNormal/ToDoNormal";
+import ToDoEditing from "../ToDoEditing/ToDoEditing";
 
 const theme = createMuiTheme({
   palette: {
@@ -87,32 +91,43 @@ const App = () => {
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
-      <Header text="Todo Today" />
-      <h2>To Dos:</h2>
-      <ul>
-        {todos.map((todo) => {
-          return (
-            <ToDo
-              key={todo.id}
-              id={todo.id}
-              text={todo.text}
-              currentlyEditing={currentlyEditing === todo.id}
-              currentlyEditingText={currentlyEditingText}
-              setCurrentlyEditingText={setCurrentlyEditingText}
-              handleSaveClick={handleSaveClick}
-              handleEditClick={handleEditClick}
-              handleDeleteClick={handleDeleteClick}
-            />
-          );
-        })}
-      </ul>
-      <input
-        type="text"
-        value={newToDoText}
-        onChange={(e) => setNewToDoText(e.target.value)}
-      />
-      <button onClick={() => handleAddClick()}>Add To Do</button>
-      <pre>{JSON.stringify(todos, null, 2)}</pre>
+      <Paper>
+        <Header text="Todo Today" />
+        <ToDoList title="To Dos:">
+          <ul>
+            {todos.map((todo) => {
+              return (
+                <ToDoShell key={todo.id}>
+                  {currentlyEditing !== todo.id ? (
+                    <ToDoNormal
+                      id={todo.id}
+                      text={todo.text}
+                      setCurrentlyEditingText={setCurrentlyEditingText}
+                      handleEditClick={handleEditClick}
+                    />
+                  ) : (
+                    <ToDoEditing
+                      id={todo.id}
+                      text={todo.text}
+                      currentlyEditingText={currentlyEditingText}
+                      setCurrentlyEditingText={setCurrentlyEditingText}
+                      handleSaveClick={handleSaveClick}
+                      handleDeleteClick={handleDeleteClick}
+                    />
+                  )}
+                </ToDoShell>
+              );
+            })}
+          </ul>
+        </ToDoList>
+        <input
+          type="text"
+          value={newToDoText}
+          onChange={(e) => setNewToDoText(e.target.value)}
+        />
+        <button onClick={() => handleAddClick()}>Add To Do</button>
+        <pre>{JSON.stringify(todos, null, 2)}</pre>
+      </Paper>
     </MuiThemeProvider>
   );
 };
