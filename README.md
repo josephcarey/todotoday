@@ -7,9 +7,12 @@
 - Practice with React and Hooks
 - Practice with Testing
 
-# Next
+# Today
 
 - Make it pretty
+
+# Next
+
 - Make lists a separate thing
 - Make it work for different users
 - eventual goal
