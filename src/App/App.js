@@ -11,9 +11,7 @@ import {
 
 import Header from "../Header/Header";
 import ToDoList from "../ToDoList/ToDoList";
-import ToDoShell from "../ToDoShell/ToDoShell";
-import ToDoNormal from "../ToDoNormal/ToDoNormal";
-import ToDoEditing from "../ToDoEditing/ToDoEditing";
+import ToDo from "../ToDo/ToDo";
 
 const theme = createMuiTheme({
   palette: {
@@ -94,31 +92,17 @@ const App = () => {
       <Paper>
         <Header text="Todo Today" />
         <ToDoList title="To Dos:">
-          <ul>
-            {todos.map((todo) => {
-              return (
-                <ToDoShell key={todo.id}>
-                  {currentlyEditing !== todo.id ? (
-                    <ToDoNormal
-                      id={todo.id}
-                      text={todo.text}
-                      setCurrentlyEditingText={setCurrentlyEditingText}
-                      handleEditClick={handleEditClick}
-                    />
-                  ) : (
-                    <ToDoEditing
-                      id={todo.id}
-                      text={todo.text}
-                      currentlyEditingText={currentlyEditingText}
-                      setCurrentlyEditingText={setCurrentlyEditingText}
-                      handleSaveClick={handleSaveClick}
-                      handleDeleteClick={handleDeleteClick}
-                    />
-                  )}
-                </ToDoShell>
-              );
-            })}
-          </ul>
+          {todos.map((todo) => {
+            return (
+              <ToDo
+                key={todo.id}
+                id={todo.id}
+                text={todo.text}
+                editToDo={editToDo}
+                deleteToDo={deleteToDo}
+              />
+            );
+          })}
         </ToDoList>
         <input
           type="text"
