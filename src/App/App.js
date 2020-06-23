@@ -12,6 +12,7 @@ import {
 import Header from "../Header/Header";
 import ToDoList from "../ToDoList/ToDoList";
 import ToDo from "../ToDo/ToDo";
+import ToDoAdd from "../ToDoAdd/ToDoAdd";
 
 const theme = createMuiTheme({
   palette: {
@@ -28,8 +29,6 @@ const theme = createMuiTheme({
 const App = () => {
   // Hooks
   const [todos, setTodos] = useState([{ id: 0 }]);
-  const [currentlyEditing, setCurrentlyEditing] = useState(0);
-  const [currentlyEditingText, setCurrentlyEditingText] = useState("");
   const [newToDoText, setNewToDoText] = useState("");
 
   useEffect(() => {
@@ -68,24 +67,6 @@ const App = () => {
     addToDo(newToDoText);
   };
 
-  const handleDeleteClick = (deleteId) => {
-    console.log("delete button clicked, id:", deleteId);
-    deleteToDo(deleteId);
-  };
-
-  const handleEditClick = (editId, toEditText) => {
-    console.log("edit button clicked, id:", editId);
-    setCurrentlyEditing(editId);
-    setCurrentlyEditingText(toEditText);
-  };
-
-  const handleSaveClick = (saveId, saveText) => {
-    console.log("save button clicked, data:", saveId, saveText);
-    editToDo(saveId, saveText);
-    setCurrentlyEditing(0);
-    setCurrentlyEditingText("");
-  };
-
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
@@ -103,13 +84,14 @@ const App = () => {
               />
             );
           })}
+          <ToDoAdd addToDo={addToDo} />
         </ToDoList>
-        <input
+        {/* <input
           type="text"
           value={newToDoText}
           onChange={(e) => setNewToDoText(e.target.value)}
         />
-        <button onClick={() => handleAddClick()}>Add To Do</button>
+        <button onClick={() => handleAddClick()}>Add To Do</button> */}
         <pre>{JSON.stringify(todos, null, 2)}</pre>
       </Paper>
     </MuiThemeProvider>
