@@ -78,7 +78,10 @@ const ToDo = (props) => {
 };
 
 ToDo.propTypes = {
+  id: PropTypes.number,
   text: PropTypes.string,
+  editToDo: PropTypes.func,
+  deleteToDo: PropTypes.func,
 };
 
 export default ToDo;
