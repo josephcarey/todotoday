@@ -36,42 +36,46 @@ const ToDo = (props) => {
   // Return
   return (
     <ListItem>
+      {/* Checkbox */}
       <ListItemIcon>
         <Checkbox edge="start" disableRipple />
       </ListItemIcon>
-      {/* If we are not editing */}
+      {/* Text */}
       {!currentlyEditing ? (
-        <>
-          <ListItemText primary={props.text} />
-          <ListItemSecondaryAction>
-            <IconButton edge="end" onClick={() => startEditing(props.text)}>
-              <EditIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </>
+        // Not Editing
+        <ListItemText primary={props.text} />
       ) : (
-        // If we are editing
-        <>
-          <ListItemText>
-            <TextField
-              value={currentlyEditingText}
-              onChange={(e) => setCurrentlyEditingText(e.target.value)}
-            />
-          </ListItemText>
-          <ListItemSecondaryAction>
-            <IconButton edge="end" onClick={() => props.deleteToDo(props.id)}>
-              <DeleteIcon />
-            </IconButton>
-            <IconButton
-              edge="end"
-              onClick={() =>
-                finishEditing(props.id, props.text, currentlyEditingText)
-              }
-            >
-              <DoneIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </>
+        // Editing
+        <ListItemText>
+          <TextField
+            value={currentlyEditingText}
+            onChange={(e) => setCurrentlyEditingText(e.target.value)}
+          />
+        </ListItemText>
+      )}
+      {/* End Buttons */}
+      {!currentlyEditing ? (
+        // Not Editing
+        <ListItemSecondaryAction>
+          <IconButton edge="end" onClick={() => startEditing(props.text)}>
+            <EditIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      ) : (
+        // Editing
+        <ListItemSecondaryAction>
+          <IconButton edge="end" onClick={() => props.deleteToDo(props.id)}>
+            <DeleteIcon />
+          </IconButton>
+          <IconButton
+            edge="end"
+            onClick={() =>
+              finishEditing(props.id, props.text, currentlyEditingText)
+            }
+          >
+            <DoneIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
       )}
     </ListItem>
   );
