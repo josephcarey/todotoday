@@ -9,16 +9,17 @@
 
 # Today
 
-- Make it pretty
-
 # Next
 
+- Make toggling the checkbox work
+- sort list by completed/not
 - Make lists a separate thing
 - Make it work for different users
 - eventual goal
 
 # Finished
 
+- Make it pretty
 - Move db access logic out of routers
 - Edit to dos
 - Show to dos on screen
