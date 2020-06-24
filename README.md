@@ -9,17 +9,17 @@
 
 # Today
 
-- Make toggling the checkbox work
+- sort list by completed/not
 
 # Next
 
-- sort list by completed/not
 - Make lists a separate thing
 - Make it work for different users
 - eventual goal
 
 # Finished
 
+- Make toggling the checkbox work
 - Make it prettyish
 - Move db access logic out of routers
 - Edit to dos
