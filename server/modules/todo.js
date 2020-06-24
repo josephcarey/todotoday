@@ -14,7 +14,8 @@ const ToDo = {
     return new Promise((resolve, reject) => {
       pool
         .query(
-          `SELECT * FROM ${this.tableName} order by ${this.fields.id} asc;`
+          `SELECT * FROM ${this.tableName}
+          order by ${this.fields.is_completed} asc, ${this.fields.id} asc;`
         )
         .then((results) => {
           debug("results:");

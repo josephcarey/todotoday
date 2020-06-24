@@ -9,7 +9,7 @@
 
 # Today
 
-- sort list by completed/not
+- another round of making it prettier
 
 # Next
 
@@ -19,6 +19,7 @@
 
 # Finished
 
+- sort list by completed/not
 - Make toggling the checkbox work
 - Make it prettyish
 - Move db access logic out of routers
