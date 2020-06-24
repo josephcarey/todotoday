@@ -3,6 +3,7 @@ import axios from "axios";
 
 // Material-UI
 import {
+  Container,
   CssBaseline,
   createMuiTheme,
   MuiThemeProvider,
@@ -62,23 +63,25 @@ const App = () => {
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
-      <Paper>
-        <Header text="Todo Today" />
-        <ToDoList title="To Dos:">
-          {todos.map((todo) => {
-            return (
-              <ToDo
-                key={todo.id}
-                todo={todo}
-                editToDo={editToDo}
-                deleteToDo={deleteToDo}
-              />
-            );
-          })}
-          <ToDoAdd addToDo={addToDo} />
-        </ToDoList>
-        {/* <pre>{JSON.stringify(todos, null, 2)}</pre> */}
-      </Paper>
+      <Container>
+        <Paper>
+          <Header text="Todo Today" />
+          <ToDoList title="All To Dos">
+            {todos.map((todo) => {
+              return (
+                <ToDo
+                  key={todo.id}
+                  todo={todo}
+                  editToDo={editToDo}
+                  deleteToDo={deleteToDo}
+                />
+              );
+            })}
+            <ToDoAdd addToDo={addToDo} />
+          </ToDoList>
+          {/* <pre>{JSON.stringify(todos, null, 2)}</pre> */}
+        </Paper>
+      </Container>
     </MuiThemeProvider>
   );
 };
