@@ -53,12 +53,10 @@ const App = () => {
     });
   };
 
-  const editToDo = (idToEdit, newText) => {
-    axios
-      .put("api/todo/", { idToEdit: idToEdit, newText: newText })
-      .then(() => {
-        getToDos();
-      });
+  const editToDo = (newToDo) => {
+    axios.put("api/todo/", { newToDo: newToDo }).then(() => {
+      getToDos();
+    });
   };
 
   return (
@@ -71,8 +69,7 @@ const App = () => {
             return (
               <ToDo
                 key={todo.id}
-                id={todo.id}
-                text={todo.text}
+                todo={todo}
                 editToDo={editToDo}
                 deleteToDo={deleteToDo}
               />

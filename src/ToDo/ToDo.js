@@ -15,6 +15,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DoneIcon from "@material-ui/icons/Done";
 
+// eslint-disable-next-line max-lines-per-function
 const ToDo = (props) => {
   // Hooks
   const [currentlyEditing, setCurrentlyEditing] = useState(false);
@@ -26,11 +27,23 @@ const ToDo = (props) => {
     setCurrentlyEditing(true);
   };
 
-  const finishEditing = (id, originalText, editText) => {
-    if (editText !== originalText) {
-      props.editToDo(id, editText);
+  const finishEditing = (todo, editText) => {
+    if (editText !== todo.text) {
+      const editedToDo = {
+        ...todo,
+        text: editText,
+      };
+      props.editToDo(editedToDo);
     }
     setCurrentlyEditing(false);
+  };
+
+  const toggleChecked = (todo) => {
+    const editedToDo = {
+      ...todo,
+      is_completed: !todo.is_completed,
+    };
+    props.editToDo(editedToDo);
   };
 
   // Return
@@ -38,12 +51,17 @@ const ToDo = (props) => {
     <ListItem>
       {/* Checkbox */}
       <ListItemIcon>
-        <Checkbox edge="start" disableRipple />
+        <Checkbox
+          edge="start"
+          disableRipple
+          checked={props.todo.is_completed}
+          onClick={() => toggleChecked(props.todo)}
+        />
       </ListItemIcon>
       {/* Text */}
       {!currentlyEditing ? (
         // Not Editing
-        <ListItemText primary={props.text} />
+        <ListItemText primary={props.todo.text} />
       ) : (
         // Editing
         <ListItemText>
@@ -57,21 +75,22 @@ const ToDo = (props) => {
       {!currentlyEditing ? (
         // Not Editing
         <ListItemSecondaryAction>
-          <IconButton edge="end" onClick={() => startEditing(props.text)}>
+          <IconButton edge="end" onClick={() => startEditing(props.todo.text)}>
             <EditIcon />
           </IconButton>
         </ListItemSecondaryAction>
       ) : (
         // Editing
         <ListItemSecondaryAction>
-          <IconButton edge="end" onClick={() => props.deleteToDo(props.id)}>
+          <IconButton
+            edge="end"
+            onClick={() => props.deleteToDo(props.todo.id)}
+          >
             <DeleteIcon />
           </IconButton>
           <IconButton
             edge="end"
-            onClick={() =>
-              finishEditing(props.id, props.text, currentlyEditingText)
-            }
+            onClick={() => finishEditing(props.todo, currentlyEditingText)}
           >
             <DoneIcon />
           </IconButton>

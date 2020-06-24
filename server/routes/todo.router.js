@@ -46,9 +46,9 @@ router.delete("/:id", (req, res) => {
 
 router.put("/", (req, res) => {
   debug("in /api/todo/ PUT");
-  debug("req.body.idToEdit, newText:", req.body.idToEdit, req.body.newText);
+  debug("req.body.newToDo:", req.body.newToDo);
 
-  ToDo.editToDoText(req.body.idToEdit, req.body.newText)
+  ToDo.editToDoText(req.body.newToDo)
     .then(() => {
       res.sendStatus(200);
     })

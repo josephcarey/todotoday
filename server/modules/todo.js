@@ -64,15 +64,15 @@ const ToDo = {
     });
   },
 
-  editToDoText(idToEdit, newText) {
+  editToDoText(newToDo) {
     return new Promise((resolve, reject) => {
       pool
-        .query(
-          `UPDATE ${this.tableName}
-            SET ${this.fields.text} = $1
-            where ${this.fields.id} = $2;`,
-          [newText, idToEdit]
-        )
+        .query(this.getEditQuery(), [
+          newToDo.text,
+          newToDo.creation_date,
+          newToDo.is_completed,
+          newToDo.id,
+        ])
         .then(() => {
           resolve();
         })
@@ -82,6 +82,17 @@ const ToDo = {
           reject(error);
         });
     });
+  },
+
+  getEditQuery() {
+    return `
+    UPDATE ${this.tableName}
+    SET
+      ${this.fields.text} = $1,
+      ${this.fields.creation_date} = $2,
+      ${this.fields.is_completed} = $3
+    WHERE ${this.fields.id} = $4;
+    `;
   },
 };
 
